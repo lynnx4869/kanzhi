@@ -1,18 +1,18 @@
 //
-//  SettingViewController.m
+//  AboutViewController.m
 //  看知
 //
-//  Created by qianfeng on 15/8/10.
+//  Created by qianfeng on 15/8/14.
 //  Copyright (c) 2015年 lyning. All rights reserved.
 //
 
-#import "SettingViewController.h"
+#import "AboutViewController.h"
 
-@interface SettingViewController ()
+@interface AboutViewController ()
 
 @end
 
-@implementation SettingViewController
+@implementation AboutViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

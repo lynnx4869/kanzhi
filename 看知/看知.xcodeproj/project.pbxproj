@@ -37,6 +37,14 @@
 		BC45DBA11B7B3B610049595E /* PostDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC45DB9F1B7B3B610049595E /* PostDetailCell.m */; };
 		BC45DBA21B7B3B610049595E /* PostDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC45DBA01B7B3B610049595E /* PostDetailCell.xib */; };
 		BC45DBA51B7B3D4D0049595E /* PostDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BC45DBA41B7B3D4D0049595E /* PostDetailModel.m */; };
+		BC45DBA81B7B5E230049595E /* ZhihuInterfaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC45DBA71B7B5E230049595E /* ZhihuInterfaceViewController.m */; };
+		BC487D451B7D7C0A009A1548 /* SuggestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC487D441B7D7C0A009A1548 /* SuggestionViewController.m */; };
+		BC487DE51B7D97E8009A1548 /* right_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BC487DE31B7D97E8009A1548 /* right_arrow.png */; };
+		BC487DE61B7D97E8009A1548 /* left_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BC487DE41B7D97E8009A1548 /* left_arrow.png */; };
+		BC487DEB1B7DD31D009A1548 /* QuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC487DEA1B7DD31D009A1548 /* QuestionViewController.m */; };
+		BC487DF71B7DE59A009A1548 /* QuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC487DF51B7DE59A009A1548 /* QuestionCell.m */; };
+		BC487DFB1B7DE992009A1548 /* QuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BC487DFA1B7DE992009A1548 /* QuestionModel.m */; };
+		BC487DFE1B7DFAED009A1548 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC487DFD1B7DFAED009A1548 /* AboutViewController.m */; };
 		BC8A6AF81B78D0D10069DD87 /* MainTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8A6AF71B78D0D10069DD87 /* MainTabBarViewController.m */; };
 		BC8A6AFB1B78D1260069DD87 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8A6AFA1B78D1260069DD87 /* HomeViewController.m */; };
 		BC8A6AFE1B78D1480069DD87 /* UserDynamicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8A6AFD1B78D1480069DD87 /* UserDynamicViewController.m */; };
@@ -183,6 +191,20 @@
 		BC45DBA01B7B3B610049595E /* PostDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostDetailCell.xib; sourceTree = "<group>"; };
 		BC45DBA31B7B3D4D0049595E /* PostDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDetailModel.h; sourceTree = "<group>"; };
 		BC45DBA41B7B3D4D0049595E /* PostDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDetailModel.m; sourceTree = "<group>"; };
+		BC45DBA61B7B5E230049595E /* ZhihuInterfaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZhihuInterfaceViewController.h; sourceTree = "<group>"; };
+		BC45DBA71B7B5E230049595E /* ZhihuInterfaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhihuInterfaceViewController.m; sourceTree = "<group>"; };
+		BC487D431B7D7C0A009A1548 /* SuggestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionViewController.h; sourceTree = "<group>"; };
+		BC487D441B7D7C0A009A1548 /* SuggestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionViewController.m; sourceTree = "<group>"; };
+		BC487DE31B7D97E8009A1548 /* right_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_arrow.png; sourceTree = "<group>"; };
+		BC487DE41B7D97E8009A1548 /* left_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left_arrow.png; sourceTree = "<group>"; };
+		BC487DE91B7DD31D009A1548 /* QuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionViewController.h; sourceTree = "<group>"; };
+		BC487DEA1B7DD31D009A1548 /* QuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionViewController.m; sourceTree = "<group>"; };
+		BC487DF41B7DE59A009A1548 /* QuestionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionCell.h; sourceTree = "<group>"; };
+		BC487DF51B7DE59A009A1548 /* QuestionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionCell.m; sourceTree = "<group>"; };
+		BC487DF91B7DE992009A1548 /* QuestionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionModel.h; sourceTree = "<group>"; };
+		BC487DFA1B7DE992009A1548 /* QuestionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionModel.m; sourceTree = "<group>"; };
+		BC487DFC1B7DFAED009A1548 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		BC487DFD1B7DFAED009A1548 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		BC8A6AF61B78D0D10069DD87 /* MainTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBarViewController.h; sourceTree = "<group>"; };
 		BC8A6AF71B78D0D10069DD87 /* MainTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarViewController.m; sourceTree = "<group>"; };
 		BC8A6AF91B78D1260069DD87 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -415,6 +437,8 @@
 				BC8A6C391B7A1DF60069DD87 /* PostsModel.m */,
 				BC45DBA31B7B3D4D0049595E /* PostDetailModel.h */,
 				BC45DBA41B7B3D4D0049595E /* PostDetailModel.m */,
+				BC487DF91B7DE992009A1548 /* QuestionModel.h */,
+				BC487DFA1B7DE992009A1548 /* QuestionModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -422,6 +446,8 @@
 		BC8A6AF21B78CDD80069DD87 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				BC487DE31B7D97E8009A1548 /* right_arrow.png */,
+				BC487DE41B7D97E8009A1548 /* left_arrow.png */,
 				BC8A6B021B78D19E0069DD87 /* png */,
 			);
 			path = Resource;
@@ -448,10 +474,18 @@
 				BC8A6AFA1B78D1260069DD87 /* HomeViewController.m */,
 				BC45DB9B1B7B34AE0049595E /* PostDetailViewController.h */,
 				BC45DB9C1B7B34AE0049595E /* PostDetailViewController.m */,
+				BC45DBA61B7B5E230049595E /* ZhihuInterfaceViewController.h */,
+				BC45DBA71B7B5E230049595E /* ZhihuInterfaceViewController.m */,
 				BC8A6AFC1B78D1480069DD87 /* UserDynamicViewController.h */,
 				BC8A6AFD1B78D1480069DD87 /* UserDynamicViewController.m */,
 				BC8A6AFF1B78D1560069DD87 /* SettingViewController.h */,
 				BC8A6B001B78D1560069DD87 /* SettingViewController.m */,
+				BC487D431B7D7C0A009A1548 /* SuggestionViewController.h */,
+				BC487D441B7D7C0A009A1548 /* SuggestionViewController.m */,
+				BC487DE91B7DD31D009A1548 /* QuestionViewController.h */,
+				BC487DEA1B7DD31D009A1548 /* QuestionViewController.m */,
+				BC487DFC1B7DFAED009A1548 /* AboutViewController.h */,
+				BC487DFD1B7DFAED009A1548 /* AboutViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -468,6 +502,8 @@
 				BC45DB9E1B7B3B610049595E /* PostDetailCell.h */,
 				BC45DB9F1B7B3B610049595E /* PostDetailCell.m */,
 				BC45DBA01B7B3B610049595E /* PostDetailCell.xib */,
+				BC487DF41B7DE59A009A1548 /* QuestionCell.h */,
+				BC487DF51B7DE59A009A1548 /* QuestionCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -612,6 +648,15 @@
 			knownRegions = (
 				en,
 				Base,
+				da,
+				de,
+				"es-ES",
+				es,
+				fr,
+				ja,
+				pt,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = BC2587201B78A36C0039725D;
 			productRefGroup = BC25872A1B78A36C0039725D /* Products */;
@@ -630,6 +675,7 @@
 			files = (
 				BC8A6B711B78D19E0069DD87 /* Settings@3x.png in Resources */,
 				BC8A6B761B78D19E0069DD87 /* SVWebViewControllerActivityChrome-iPad@2x.png in Resources */,
+				BC487DE51B7D97E8009A1548 /* right_arrow.png in Resources */,
 				BC45DAEF1B7AF0B20049595E /* MJRefresh.bundle in Resources */,
 				BC8A6B541B78D19E0069DD87 /* blueArrowDown.png in Resources */,
 				BC8A6C421B7A20140069DD87 /* PostsCell.xib in Resources */,
@@ -653,6 +699,7 @@
 				BC8A6B6C1B78D19E0069DD87 /* navBack.png in Resources */,
 				BC8A6B841B78D19E0069DD87 /* WeixinPay.png in Resources */,
 				BC8A6B591B78D19E0069DD87 /* FavoriteFilled.png in Resources */,
+				BC487DE61B7D97E8009A1548 /* left_arrow.png in Resources */,
 				BC8A6B4C1B78D19E0069DD87 /* BgMainColor.png in Resources */,
 				BC8A6B581B78D19E0069DD87 /* Favorite@3x.png in Resources */,
 				BC8A6B6D1B78D19E0069DD87 /* navBack@2x.png in Resources */,
@@ -719,6 +766,7 @@
 				BC45DB901B7B2D370049595E /* SDWebImageDownloader.m in Sources */,
 				BC2587321B78A36C0039725D /* AppDelegate.m in Sources */,
 				BC45DB8E1B7B2D370049595E /* SDWebImageCompat.m in Sources */,
+				BC487DEB1B7DD31D009A1548 /* QuestionViewController.m in Sources */,
 				BC8A6C321B7A1DAF0069DD87 /* AFNetworkReachabilityManager.m in Sources */,
 				BC45DB671B7B26030049595E /* PostsPicCell.m in Sources */,
 				BC25872F1B78A36C0039725D /* main.m in Sources */,
@@ -727,10 +775,12 @@
 				BC8A6C311B7A1DAF0069DD87 /* AFHTTPSessionManager.m in Sources */,
 				BC45DB991B7B2D370049595E /* UIImageView+WebCache.m in Sources */,
 				BC45DB971B7B2D370049595E /* UIImage+WebP.m in Sources */,
+				BC487DFB1B7DE992009A1548 /* QuestionModel.m in Sources */,
 				BC45DB8D1B7B2D370049595E /* SDImageCache.m in Sources */,
 				BC8A6C351B7A1DAF0069DD87 /* AFURLRequestSerialization.m in Sources */,
 				BC45DB961B7B2D370049595E /* UIImage+MultiFormat.m in Sources */,
 				BC45DB911B7B2D370049595E /* SDWebImageDownloaderOperation.m in Sources */,
+				BC487DFE1B7DFAED009A1548 /* AboutViewController.m in Sources */,
 				BC45DBA51B7B3D4D0049595E /* PostDetailModel.m in Sources */,
 				BC8A6AFE1B78D1480069DD87 /* UserDynamicViewController.m in Sources */,
 				BC45DB981B7B2D370049595E /* UIImageView+HighlightedWebCache.m in Sources */,
@@ -742,13 +792,16 @@
 				BC8A6C451B7A26900069DD87 /* HttpManager.m in Sources */,
 				BC8A6C401B7A1FE10069DD87 /* PostsCell.m in Sources */,
 				BC8A6C331B7A1DAF0069DD87 /* AFSecurityPolicy.m in Sources */,
+				BC45DBA81B7B5E230049595E /* ZhihuInterfaceViewController.m in Sources */,
 				BC45DB8F1B7B2D370049595E /* SDWebImageDecoder.m in Sources */,
 				BC8A6C361B7A1DAF0069DD87 /* AFURLResponseSerialization.m in Sources */,
 				BC45DBA11B7B3B610049595E /* PostDetailCell.m in Sources */,
 				BC45DAF11B7AF0B20049595E /* MJRefreshConst.m in Sources */,
+				BC487DF71B7DE59A009A1548 /* QuestionCell.m in Sources */,
 				BC8A6C3D1B7A1F000069DD87 /* MyUtil.m in Sources */,
 				BC45DAF01B7AF0B20049595E /* MJRefreshBaseView.m in Sources */,
 				BC45DB931B7B2D370049595E /* SDWebImagePrefetcher.m in Sources */,
+				BC487D451B7D7C0A009A1548 /* SuggestionViewController.m in Sources */,
 				BC45DB8B1B7B2D370049595E /* MKAnnotationView+WebCache.m in Sources */,
 				BC45DB951B7B2D370049595E /* UIImage+GIF.m in Sources */,
 				BC8A6C2F1B7A1DAF0069DD87 /* AFHTTPRequestOperation.m in Sources */,

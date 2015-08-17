@@ -36,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0];
     
     _dataArray = [NSMutableArray array];
     _isRefresh = NO;
@@ -45,7 +45,7 @@
     
     [self createNav];
     [self createtableView];
-    NSLog(@"%@", NSHomeDirectory());
+    //NSLog(@"%@", NSHomeDirectory());
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,6 +67,15 @@
     UIButton *leftBtn = [MyUtil createNavBtn:title target:self action:@selector(gotoOtherDisplay:)];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
     self.navigationItem.leftBarButtonItem = item;
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                 style:UIBarButtonItemStylePlain
+                                                                target:nil
+                                                                action:nil];
+    [backItem setBackButtonBackgroundImage:[UIImage imageNamed:@"navBack"]
+                                  forState:UIControlStateNormal
+                                barMetrics:UIBarMetricsDefault];
+    self.navigationItem.backBarButtonItem = backItem;
 }
 
 - (void)createtableView{
@@ -76,11 +85,13 @@
                   initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-113)
                           style:UITableViewStylePlain];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.backgroundColor = [UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     
     _headerView = [MJRefreshHeaderView header];
+    _headerView.backgroundColor = [UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0];
     _headerView.scrollView = _tableView;
     _headerView.delegate = self;
     
@@ -106,6 +117,7 @@
     [manager requestGet:url];;
 }
 
+#pragma mark - BottonClickAction
 - (void)gotoOtherDisplay:(UIButton *)btn{
     if(_isWordVer){
         _isWordVer = NO;
@@ -120,6 +132,10 @@
 #pragma mark - HttpManagerDelegate
 - (void)failure:(AFHTTPRequestOperation *)operation response:(NSError *)error{
     NSLog(@"Home:%@", error);
+    [MyUtil warmNetCannotConnect];
+    _isLoading = NO;
+    [_headerView endRefreshing];
+    [_footerView endRefreshing];
 }
 
 - (void)success:(AFHTTPRequestOperation *)operation response:(id)responseObject{
@@ -181,9 +197,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     PostsModel *model = _dataArray[indexPath.row];
     PostDetailViewController *pdvc = [[PostDetailViewController alloc] init];
-    
-    NSArray *dateArray = [model.date componentsSeparatedByString:@"-"];
-    pdvc.date = [NSString stringWithFormat:@"%@%@%@", dateArray[0], dateArray[1], dateArray[2]];
+    pdvc.date = model.date;
     pdvc.name = model.name;
     
     self.hidesBottomBarWhenPushed = YES;
@@ -206,5 +220,9 @@
     }
 }
 
+- (void)dealloc{
+    _headerView = nil;
+    _footerView = nil;
+}
 
 @end

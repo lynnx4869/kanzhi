@@ -31,8 +31,22 @@
     _dateLabel.text = [NSString stringWithFormat:@"%@月%@日", resArray[1], resArray[2]];
     
     _countLabel.text = model.count;
+    
+    UIActivityIndicatorView *indeicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    indeicatorView.backgroundColor = [UIColor clearColor];
+    indeicatorView.color = [UIColor whiteColor];
+    indeicatorView.center = CGPointMake(_headWallImageView.bounds.size.width/2, _headWallImageView.bounds.size.height/2);
+    [_headWallImageView addSubview:indeicatorView];
+    _headWallImageView.backgroundColor = [UIColor grayColor];
+    [indeicatorView startAnimating];
     [_headWallImageView sd_setImageWithURL:[NSURL URLWithString:model.pic]
-                          placeholderImage:[UIImage imageNamed:@"ImageDefault"]];
+                                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                     dispatch_queue_t mainQueue = dispatch_get_main_queue();
+                                     dispatch_async(mainQueue, ^{
+                                         [indeicatorView stopAnimating];
+                                         indeicatorView.hidden = YES;
+                                     });
+                                 }];
 }
 
 - (void)awakeFromNib {

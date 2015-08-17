@@ -14,5 +14,8 @@
 + (NSString *)transNameForZh:(NSString *)name;
 + (UIColor *)transNameForColor:(NSString *)name;
 + (UIButton *)createNavBtn:(NSString *)title target:(id)target action:(SEL)action;
++ (void)warmNetCannotConnect;
++ (NSDate *)dateFromString:(NSString *)dateString;
++ (NSString *)stringFromDate:(NSDate *)date;
 
 @end
