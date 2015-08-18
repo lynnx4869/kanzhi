@@ -1,18 +1,18 @@
 //
-//  AboutViewController.m
+//  PersonDetailViewController.m
 //  看知
 //
-//  Created by qianfeng on 15/8/14.
+//  Created by qianfeng on 15/8/17.
 //  Copyright (c) 2015年 lyning. All rights reserved.
 //
 
-#import "AboutViewController.h"
+#import "PersonDetailViewController.h"
 
-@interface AboutViewController ()
+@interface PersonDetailViewController ()
 
 @end
 
-@implementation AboutViewController
+@implementation PersonDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

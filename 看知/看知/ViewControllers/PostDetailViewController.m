@@ -83,7 +83,7 @@
     UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     _effectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     _effectView.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
-    _effectView.alpha = 0.7;
+    _effectView.alpha = 0.85;
     _effectView.hidden = YES;
     [self.view addSubview:_effectView];
     
@@ -192,6 +192,7 @@
     ZhihuInterfaceViewController *zvc = [[ZhihuInterfaceViewController alloc] init];
     zvc.curIndex = indexPath.row;
     zvc.modelArray = _dataArray;
+    zvc.isOnlyOne = NO;
     
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:zvc animated:YES];

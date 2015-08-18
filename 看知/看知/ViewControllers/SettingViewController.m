@@ -10,6 +10,7 @@
 #import "SuggestionViewController.h"
 #import "QuestionViewController.h"
 #import "AboutViewController.h"
+#import "CollectsViewController.h"
 
 @interface SettingViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -114,6 +115,11 @@
         AboutViewController *avc = [[AboutViewController alloc] init];
         self.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:avc animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
+    }else if(indexPath.section == 1 && indexPath.row == 2){
+        CollectsViewController *cvc = [[CollectsViewController alloc] init];
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:cvc animated:YES];
         self.hidesBottomBarWhenPushed = NO;
     }
 }

@@ -9,7 +9,7 @@
 #import "ZhihuInterfaceViewController.h"
 #import "MyUtil.h"
 #import "Const.h"
-#import "PostDetailModel.h"
+#import "DBManager.h"
 
 @interface ZhihuInterfaceViewController () <UIWebViewDelegate>
 
@@ -38,21 +38,35 @@
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:25/255.0 green:153/255.0 blue:255/255.0 alpha:1.0];
     [self.navigationController setToolbarHidden:NO animated:YES];
     
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]
-                                 initWithImage:[[UIImage imageNamed:@"Favorite"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                 style:UIBarButtonItemStyleDone
-                                 target:self
-                                 action:@selector(attentionPost)];
-    self.navigationItem.rightBarButtonItem = rightItem;
+    if([[DBManager shareManager] isHadCollected:_modelArray[_curIndex]]){
+        UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]
+                                      initWithImage:[[UIImage imageNamed:@"FavoriteFilled"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                      style:UIBarButtonItemStyleDone
+                                      target:self
+                                      action:@selector(attentionPost)];
+        self.navigationItem.rightBarButtonItem = rightItem;
+    }else{
+        UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]
+                                      initWithImage:[[UIImage imageNamed:@"Favorite"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                      style:UIBarButtonItemStyleDone
+                                      target:self
+                                      action:@selector(attentionPost)];
+        self.navigationItem.rightBarButtonItem = rightItem;
+    }
     
-    UIStepper *stepper = [[UIStepper alloc] init];
-    stepper.value = _curIndex + 1;
-    stepper.minimumValue = 1;
-    stepper.maximumValue = _modelArray.count;
-    stepper.stepValue = 1;
-    stepper.tintColor = [UIColor whiteColor];
-    [stepper addTarget:self action:@selector(stepperValueChange:) forControlEvents:UIControlEventValueChanged];
-    self.navigationItem.titleView = stepper;
+    if(_isOnlyOne){
+        PostDetailModel *model = _modelArray[_curIndex];
+        self.navigationItem.title = model.title;
+    }else{
+        UIStepper *stepper = [[UIStepper alloc] init];
+        stepper.value = _curIndex + 1;
+        stepper.minimumValue = 1;
+        stepper.maximumValue = _modelArray.count;
+        stepper.stepValue = 1;
+        stepper.tintColor = [UIColor whiteColor];
+        [stepper addTarget:self action:@selector(stepperValueChange:) forControlEvents:UIControlEventValueChanged];
+        self.navigationItem.titleView = stepper;
+    }
     
     UIBarButtonItem *retreatItem = [[UIBarButtonItem alloc]
                                     initWithImage:[UIImage imageNamed:@"left_arrow"]
@@ -100,12 +114,23 @@
 
 #pragma mark - BottonClickAction
 - (void)attentionPost{
-    
+    if([[DBManager shareManager] isHadCollected:_modelArray[_curIndex]]){
+        [[DBManager shareManager] deleteCollect:_modelArray[_curIndex]];
+        self.navigationItem.rightBarButtonItem.image = [[UIImage imageNamed:@"Favorite"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }else{
+        [[DBManager shareManager] collectPost:_modelArray[_curIndex]];
+        self.navigationItem.rightBarButtonItem.image = [[UIImage imageNamed:@"FavoriteFilled"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }
 }
 
 - (void)stepperValueChange:(UIStepper *)stepper{
     _curIndex = stepper.value-1;
     PostDetailModel *model = _modelArray[_curIndex];
+    if([[DBManager shareManager] isHadCollected:model]){
+        self.navigationItem.rightBarButtonItem.image = [[UIImage imageNamed:@"FavoriteFilled"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }else{
+        self.navigationItem.rightBarButtonItem.image = [[UIImage imageNamed:@"Favorite"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }
     [self loadNet:model.questionid answer:model.answerid];
 }
 

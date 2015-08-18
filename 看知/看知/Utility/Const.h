@@ -27,75 +27,67 @@ yesterday:昨日最新*/
 
 //发表->
 //提问
-#define lAskUrl @"http://api.kanzhihu.com/topuser/ask/%@/%@"
+#define lAskUrl @"http://api.kanzhihu.com/topuser/ask/%d/20"
 //回答
-#define lAnswerUrl @"http://api.kanzhihu.com/topuser/answer/%@/%@"
+#define lAnswerUrl @"http://api.kanzhihu.com/topuser/answer/%d/20"
 //专栏
-#define lPostUrl @"http://api.kanzhihu.com/topuser/post/%@/%@"
+#define lPostUrl @"http://api.kanzhihu.com/topuser/post/%d/20"
 
 //赞同->
 //赞同数
-#define lAgreeUrl @"http://api.kanzhihu.com/topuser/agree/%@/%@"
+#define lAgreeUrl @"http://api.kanzhihu.com/topuser/agree/%d/20"
 //1日增加
-#define lAgreeiUrl @"http://api.kanzhihu.com/topuser/agreei/%@/%@"
+#define lAgreeiUrl @"http://api.kanzhihu.com/topuser/agreei/%d/20"
 //1日增幅
-#define lAgreeiratioUrl @"http://api.kanzhihu.com/topuser/agreeiratio/%@/%@"
+#define lAgreeiratioUrl @"http://api.kanzhihu.com/topuser/agreeiratio/%d/20"
 //7日增加
-#define lAgreeiwUrl @"http://api.kanzhihu.com/topuser/agreeiw/%@/%@"
+#define lAgreeiwUrl @"http://api.kanzhihu.com/topuser/agreeiw/%d/20"
 //7日增幅
-#define lAgreeiratiowUrl @"http://api.kanzhihu.com/topuser/agreeiratiow/%@/%@"
+#define lAgreeiratiowUrl @"http://api.kanzhihu.com/topuser/agreeiratiow/%d/20"
 //平均赞同
-#define lRatioUrl @"http://api.kanzhihu.com/topuser/ratio/%@/%@"
+#define lRatioUrl @"http://api.kanzhihu.com/topuser/ratio/%d/20"
 
 //关注->
 //被关注数
-#define lFollowerUrl @"http://api.kanzhihu.com/topuser/follower/%@/%@"
+#define lFollowerUrl @"http://api.kanzhihu.com/topuser/follower/%d/20"
 //关注数
-#define lFolloweeUrl @"http://api.kanzhihu.com/topuser/followee/%@/%@"
+#define lFolloweeUrl @"http://api.kanzhihu.com/topuser/followee/%d/20"
 //1日增加
-#define lFolloweriUrl @"http://api.kanzhihu.com/topuser/followeri/%@/%@"
+#define lFolloweriUrl @"http://api.kanzhihu.com/topuser/followeri/%d/20"
 //1日增幅
-#define lFolloweriUrl @"http://api.kanzhihu.com/topuser/followeri/%@/%@"
+#define lFollowiratioUrl @"http://api.kanzhihu.com/topuser/followiratio/%d/20"
 //7日增加
-#define lFolloweriwUrl @"http://api.kanzhihu.com/topuser/followeriw/%@/%@"
+#define lFolloweriwUrl @"http://api.kanzhihu.com/topuser/followeriw/%d/20"
 //7日增幅
-#define lFolloweriwUrl @"http://api.kanzhihu.com/topuser/followeriw/%@/%@"
+#define lFollowiratiowUrl @"http://api.kanzhihu.com/topuser/followiratiow/%d/20"
 
 //感谢/收藏->
 //感谢数
-#define lThanksUrl @"http://api.kanzhihu.com/topuser/thanks/%@/%@"
+#define lThanksUrl @"http://api.kanzhihu.com/topuser/thanks/%d/20"
 //感谢/赞同比
-#define lTratioUrl @"http://api.kanzhihu.com/topuser/thanks/%@/%@"
+#define lTratioUrl @"http://api.kanzhihu.com/topuser/tratio/%d/20"
 //收藏数
-#define lFavUrl @"http://api.kanzhihu.com/topuser/fav/%@/%@"
+#define lFavUrl @"http://api.kanzhihu.com/topuser/fav/%d/20"
 //收藏/赞同比
-#define lFratioUrl @"http://api.kanzhihu.com/topuser/fratio/%@/%@"
+#define lFratioUrl @"http://api.kanzhihu.com/topuser/fratio/%d/20"
 //公共编辑
-#define lLogsUrl @"http://api.kanzhihu.com/topuser/logs/%@/%@"
+#define lLogsUrl @"http://api.kanzhihu.com/topuser/logs/%d/20"
 
 //高票答案数量->
 //>=10000
-#define lCount10000Url @"http://api.kanzhihu.com/topuser/count10000/%@/%@"
+#define lCount10000Url @"http://api.kanzhihu.com/topuser/count10000/%d/20"
 //>=5000
-#define lCount5000Url @"http://api.kanzhihu.com/topuser/count5000/%@/%@"
+#define lCount5000Url @"http://api.kanzhihu.com/topuser/count5000/%d/20"
 //>=2000
-#define lCount2000Url @"http://api.kanzhihu.com/topuser/count2000/%@/%@"
+#define lCount2000Url @"http://api.kanzhihu.com/topuser/count2000/%d/20"
 //>=1000
-#define lCount1000Url @"http://api.kanzhihu.com/topuser/count1000/%@/%@"
+#define lCount1000Url @"http://api.kanzhihu.com/topuser/count1000/%d/20"
 //>=500
-#define lCount500Url @"http://api.kanzhihu.com/topuser/count500/%@/%@"
+#define lCount500Url @"http://api.kanzhihu.com/topuser/count500/%d/20"
 //>=200
-#define lCount200Url @"http://api.kanzhihu.com/topuser/count200/%@/%@"
+#define lCount200Url @"http://api.kanzhihu.com/topuser/count200/%d/20"
 //>=100
-#define lCount100Url @"http://api.kanzhihu.com/topuser/count100/%@/%@"
-
-//高票答案占比->
-//最高赞同
-//最高占比
-//前五赞同
-//前五占比
-//前十赞同
-//前十占比
+#define lCount100Url @"http://api.kanzhihu.com/topuser/count100/%d/20"
 
 //用户详情(GET)
 #define lUserdetailUrl @"http://api.kanzhihu.com/userdetail2/%@" //hash值

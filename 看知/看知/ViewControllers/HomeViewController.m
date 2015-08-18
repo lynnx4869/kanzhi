@@ -91,7 +91,6 @@
     [self.view addSubview:_tableView];
     
     _headerView = [MJRefreshHeaderView header];
-    _headerView.backgroundColor = [UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0];
     _headerView.scrollView = _tableView;
     _headerView.delegate = self;
     
@@ -114,7 +113,7 @@
     }
     HttpManager *manager = [[HttpManager alloc] init];
     manager.delegate = self;
-    [manager requestGet:url];;
+    [manager requestGet:url];
 }
 
 #pragma mark - BottonClickAction

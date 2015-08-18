@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "PersonModel.h"
 
 @interface MyUtil : NSObject
 
@@ -17,5 +18,7 @@
 + (void)warmNetCannotConnect;
 + (NSDate *)dateFromString:(NSString *)dateString;
 + (NSString *)stringFromDate:(NSDate *)date;
++ (NSString *)urlStringFromType:(NSString *)typeString;
++ (NSString *)countNumFromType:(NSString *)typeString person:(PersonModel *)model;
 
 @end

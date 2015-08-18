@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PostDetailModel.h"
 
 @interface ZhihuInterfaceViewController : UIViewController
 
 @property (nonatomic, assign) NSInteger curIndex;
 @property (nonatomic, strong) NSArray *modelArray;
+
+@property (nonatomic, assign) BOOL isOnlyOne;
 
 @end
