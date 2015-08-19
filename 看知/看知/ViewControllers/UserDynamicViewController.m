@@ -108,7 +108,7 @@
     UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     _effectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     _effectView.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
-    _effectView.alpha = 0.85;
+    _effectView.alpha = 1.0;
     _effectView.hidden = YES;
     [self.view addSubview:_effectView];
     
@@ -256,9 +256,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //PersonModel *model = _dataArray[indexPath.row];
+    PersonModel *model = _dataArray[indexPath.row];
     PersonDetailViewController *pdvc = [[PersonDetailViewController alloc] init];
-    
+    pdvc.personHash = model.personHash;
+    pdvc.typeLabelString = _rightBtn.currentTitle;
+    pdvc.countLabelString = [MyUtil countNumFromType:_rightBtn.currentTitle person:model];
     
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:pdvc animated:YES];

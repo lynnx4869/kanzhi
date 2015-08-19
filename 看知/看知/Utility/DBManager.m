@@ -53,11 +53,11 @@
             NSLog(@"创建表格失败:%@", [_dataBase lastError]);
         }
 
-//        NSString *createFollowsSql = @"create table if not exists follows(id integer primary key autoincrement, applicationId varchar(20), name varchar(255), image blob)";
-//        BOOL followsFlag = [_dataBase executeUpdate:createFollowsSql];
-//        if(!followsFlag){
-//            NSLog(@"创建表格失败:%@", [_dataBase lastError]);
-//        }
+        NSString *createFollowsSql = @"create table if not exists follows(id integer primary key autoincrement, personHash varchar(255), name varchar(255), avatar varchar(255), personDescription varchar(255))";
+        BOOL followsFlag = [_dataBase executeUpdate:createFollowsSql];
+        if(!followsFlag){
+            NSLog(@"创建表格失败:%@", [_dataBase lastError]);
+        }
     }
 }
 
@@ -99,6 +99,47 @@
     BOOL ret = [_dataBase executeUpdate:sql, model.questionid, model.answerid];
     if(!ret){
         NSLog(@"删除收藏失败:%@", [_dataBase lastError]);
+    }
+}
+
+- (BOOL)isHadFollowed:(NSString *)personHash{
+    NSString *sql = @"select * from follows where personHash = ?";
+    FMResultSet *result = [_dataBase executeQuery:sql, personHash];
+    if([result next]){
+        return YES;
+    }else{
+        return NO;
+    }
+}
+
+- (void)followPerson:(NSString *)personHash person:(PersonDetailModel *)model{
+    NSString *sql = @"insert into follows(personHash, name, avatar, personDescription) values(?, ?, ?, ?)";
+    BOOL ret = [_dataBase executeUpdate:sql, personHash, model.name, model.avatar, model.personDescription];
+    if(!ret){
+        NSLog(@"插入关注失败:%@", [_dataBase lastError]);
+    }
+}
+
+- (NSArray *)queryAllFollows{
+    NSString *sql = @"select * from follows";
+    FMResultSet *result = [_dataBase executeQuery:sql];
+    NSMutableArray *array = [NSMutableArray array];
+    while([result next]){
+        PersonDetailModel *model = [[PersonDetailModel alloc] init];
+        model.personHash = [result stringForColumn:@"personHash"];
+        model.name = [result stringForColumn:@"name"];
+        model.avatar = [result stringForColumn:@"avatar"];
+        model.personDescription = [result stringForColumn:@"personDescription"];
+        [array addObject:model];
+    }
+    return array;
+}
+
+- (void)deleteFollow:(NSString *)personHash{
+    NSString *sql = @"delete from follows where personHash = ?";
+    BOOL ret = [_dataBase executeUpdate:sql, personHash];
+    if(!ret){
+        NSLog(@"删除关注失败:%@", [_dataBase lastError]);
     }
 }
 

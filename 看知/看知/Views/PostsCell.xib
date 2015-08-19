@@ -106,7 +106,7 @@
                 <outlet property="titleBgView" destination="G7g-Mz-5n7" id="i8b-tN-RiW"/>
                 <outlet property="typeLabel" destination="wOE-bS-MHh" id="2zn-9a-c6j"/>
             </connections>
-            <point key="canvasLocation" x="620" y="297"/>
+            <point key="canvasLocation" x="535" y="307"/>
         </tableViewCell>
     </objects>
 </document>

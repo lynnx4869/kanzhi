@@ -157,6 +157,7 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
 }
 
