@@ -53,7 +53,7 @@
             NSLog(@"创建表格失败:%@", [_dataBase lastError]);
         }
 
-        NSString *createFollowsSql = @"create table if not exists follows(id integer primary key autoincrement, personHash varchar(255), name varchar(255), avatar varchar(255), personDescription varchar(255))";
+        NSString *createFollowsSql = @"create table if not exists follows(id integer primary key autoincrement, personHash varchar(255), name varchar(255), avatar varchar(255), signature varchar(255))";
         BOOL followsFlag = [_dataBase executeUpdate:createFollowsSql];
         if(!followsFlag){
             NSLog(@"创建表格失败:%@", [_dataBase lastError]);
@@ -113,8 +113,8 @@
 }
 
 - (void)followPerson:(NSString *)personHash person:(PersonDetailModel *)model{
-    NSString *sql = @"insert into follows(personHash, name, avatar, personDescription) values(?, ?, ?, ?)";
-    BOOL ret = [_dataBase executeUpdate:sql, personHash, model.name, model.avatar, model.personDescription];
+    NSString *sql = @"insert into follows(personHash, name, avatar, signature) values(?, ?, ?, ?)";
+    BOOL ret = [_dataBase executeUpdate:sql, personHash, model.name, model.avatar, model.signature];
     if(!ret){
         NSLog(@"插入关注失败:%@", [_dataBase lastError]);
     }
@@ -129,7 +129,7 @@
         model.personHash = [result stringForColumn:@"personHash"];
         model.name = [result stringForColumn:@"name"];
         model.avatar = [result stringForColumn:@"avatar"];
-        model.personDescription = [result stringForColumn:@"personDescription"];
+        model.signature = [result stringForColumn:@"signature"];
         [array addObject:model];
     }
     return array;

@@ -12,6 +12,5 @@
 
 @property (nonatomic, strong) NSString *personHash;
 @property (nonatomic, strong) NSString *typeLabelString;
-@property (nonatomic, strong) NSString *countLabelString;
 
 @end

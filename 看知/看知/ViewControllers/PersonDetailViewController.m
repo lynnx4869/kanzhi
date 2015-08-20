@@ -15,9 +15,13 @@
 #import "Masonry.h"
 #import "UIImageView+WebCache.h"
 #import "PersonPostsCell.h"
+#import "DetailMeansCell.h"
+#import "ZhihuInterfaceViewController.h"
+#import "PostDetailModel.h"
+#import "CurveChartCell.h"
 
 @interface PersonDetailViewController ()
-    <HttpManagerDelegate, UITableViewDelegate, UITableViewDataSource>
+    <HttpManagerDelegate, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
 
 @property (nonatomic, strong) PersonDetailModel *person;
 
@@ -73,6 +77,15 @@
     }
     [_rightItem setEnabled:NO];
     self.navigationItem.rightBarButtonItem = _rightItem;
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                 style:UIBarButtonItemStylePlain
+                                                                target:nil
+                                                                action:nil];
+    [backItem setBackButtonBackgroundImage:[UIImage imageNamed:@"navBack"]
+                                  forState:UIControlStateNormal
+                                barMetrics:UIBarMetricsDefault];
+    self.navigationItem.backBarButtonItem = backItem;
 }
 
 - (void)createTopInfo{
@@ -161,7 +174,6 @@
     _countLabel.font = [UIFont systemFontOfSize:10];
     _countLabel.textAlignment = 1;
     _countLabel.backgroundColor = [UIColor whiteColor];
-    _countLabel.text = _countLabelString;
     [typeBgView addSubview:_countLabel];
     
     [_typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -222,13 +234,24 @@
 
 #pragma mark - ClickAction
 - (void)followPerson{
-    
+    if([[DBManager shareManager] isHadFollowed:_personHash]){
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提醒"
+                                                            message:@"是否取消关注？"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"取消"
+                                                  otherButtonTitles:@"确认", nil];
+        [alertView show];
+    }else{
+        [[DBManager shareManager] followPerson:_personHash person:_person];
+        self.navigationItem.rightBarButtonItem.image = [[UIImage imageNamed:@"FavoriteFilled"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }
 }
 
 - (void)segmentedCtrlClick:(UISegmentedControl *)seg{
     switch (seg.selectedSegmentIndex) {
         case 0:
             _tableView.hidden = NO;
+            _tableView.contentOffset = CGPointMake(0, 0);
             [_tableView reloadData];
             break;
         case 1:
@@ -236,10 +259,12 @@
             break;
         case 2:
             _tableView.hidden = NO;
+            _tableView.contentOffset = CGPointMake(0, 0);
             [_tableView reloadData];
             break;
         case 3:
             _tableView.hidden = NO;
+            _tableView.contentOffset = CGPointMake(0, 0);
             [_tableView reloadData];
             break;
         default:
@@ -279,9 +304,10 @@
     self.navigationItem.title = _person.name;
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_person.avatar]];
     _descriptionLabel.text = _person.personDescription;
+    _countLabel.text = [MyUtil countNumFromType:_typeLabelString personDetail:_person];
     
     _detailMeansArray = [NSMutableArray array];
-    [_detailMeansArray addObject:@[@[@[@"提问", _person.ask], @[@"回答", _person.answer], @[@"专栏", _person.post]],
+    [_detailMeansArray addObjectsFromArray:@[@[@[@"提问", _person.ask], @[@"回答", _person.answer], @[@"专栏", _person.post]],
                                    @[@[@"赞同数", _person.agree], @[@"1日增加", _person.agreei], @[@"1日增幅", _person.agreeiratio], @[@"7日增加", _person.agreeiw], @[@"7日增幅", _person.agreeiratiow], @[@"平均赞同", _person.ratio]],
                                    @[@[@"关注数", _person.followee], @[@"被关注数", _person.follower], @[@"1日增加", _person.followeri], @[@"1日增幅", _person.followiratio], @[@"7日增加", _person.followeriw], @[@"7日增幅", _person.followiratiow]],
                                    @[@[@"感谢数", _person.thanks], @[@"感谢/赞同比", _person.tratio], @[@"收藏数", _person.fav], @[@"收藏/赞同比", _person.fratio], @[@"公共编辑", _person.logs]],
@@ -295,13 +321,21 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     if(_segCtrl.selectedSegmentIndex == 0){
         return 1;
+    }else if(_segCtrl.selectedSegmentIndex == 2){
+        return 3;
+    }else  if(_segCtrl.selectedSegmentIndex == 3){
+        return _detailMeansArray.count;
     }
-    return 1;
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if(_segCtrl.selectedSegmentIndex == 0){
         return 0;
+    }else if(_segCtrl.selectedSegmentIndex == 2){
+        return 20;
+    }else if(_segCtrl.selectedSegmentIndex == 3){
+        return 20;
     }
     return 0;
 }
@@ -309,22 +343,72 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(_segCtrl.selectedSegmentIndex == 0){
         return 66;
+    }else if(_segCtrl.selectedSegmentIndex == 2){
+        return 140;
+    }else if(_segCtrl.selectedSegmentIndex == 3){
+        return 30;
     }
-    return 44;
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if(_segCtrl.selectedSegmentIndex == 0){
         return _person.topanswersArray.count;
+    }else if(_segCtrl.selectedSegmentIndex == 2){
+        return 1;
+    }else if(_segCtrl.selectedSegmentIndex == 3){
+        NSArray *array = _detailMeansArray[section];
+        return array.count;
     }
     return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UILabel *label = [[UILabel alloc] init];
-    label.backgroundColor = [UIColor redColor];
-    label.text = @"123";
-    return label;
+    if(_segCtrl.selectedSegmentIndex == 2){
+        UILabel *label = [[UILabel alloc] init];
+        label.backgroundColor = [UIColor lightGrayColor];
+        switch (section) {
+            case 0:
+                label.text = @"近30天赞同数变化";
+                break;
+            case 1:
+                label.text = @"近30天被关注数变化";
+                break;
+            case 2:
+                label.text = @"近30天发表数变化";
+                break;
+            default:
+                break;
+        }
+        return label;
+    }else if(_segCtrl.selectedSegmentIndex == 3){
+        UILabel *label = [[UILabel alloc] init];
+        label.backgroundColor = [UIColor lightGrayColor];
+        switch (section) {
+            case 0:
+                label.text = @"提问";
+                break;
+            case 1:
+                label.text = @"赞同";
+                break;
+            case 2:
+                label.text = @"关注";
+                break;
+            case 3:
+                label.text = @"感谢/收藏";
+                break;
+            case 4:
+                label.text = @"高票答案数量";
+                break;
+            case 5:
+                label.text = @"高票答案占比";
+                break;
+            default:
+                break;
+        }
+        return label;
+    }
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -337,12 +421,53 @@
         Topanswers *topanswer = _person.topanswersArray[indexPath.row];
         [cell config:topanswer index:indexPath.row+1];
         return cell;
+    }else if(_segCtrl.selectedSegmentIndex == 2){
+        CurveChartCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CurveChartCellId"];
+        if(cell == nil){
+            cell = [[CurveChartCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CurveChartCellId"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell configChart:_person.trendArray index:indexPath.section];
+        return cell;
+    }else{
+        DetailMeansCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DetailMeansCellId"];
+        if(cell == nil){
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DetailMeansCell" owner:nil options:nil] lastObject];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell config:_detailMeansArray[indexPath.section][indexPath.row]];
+        return cell;
     }
-    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if(_segCtrl.selectedSegmentIndex == 0){
+        ZhihuInterfaceViewController *zvc = [[ZhihuInterfaceViewController alloc] init];
+        
+        PostDetailModel *model = [[PostDetailModel alloc] init];
+        Topanswers *topanswer = _person.topanswersArray[indexPath.row];
+        model.title = topanswer.title;
+        model.authorname = _person.name;
+        
+        NSArray *array = [topanswer.link componentsSeparatedByString:@"/"];
+        model.questionid = array[2];
+        model.answerid = array[4];
+        
+        zvc.isOnlyOne = YES;
+        zvc.modelArray = @[model];
+        zvc.curIndex = 0;
+        
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:zvc animated:YES];
+    }
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex == 1){
+        [[DBManager shareManager] deleteFollow:_personHash];
+        self.navigationItem.rightBarButtonItem.image = [[UIImage imageNamed:@"Favorite"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }
 }
 
 @end

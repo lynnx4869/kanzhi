@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "PersonModel.h"
+#import "PersonDetailModel.h"
 
 @interface MyUtil : NSObject
 
@@ -20,5 +21,6 @@
 + (NSString *)stringFromDate:(NSDate *)date;
 + (NSString *)urlStringFromType:(NSString *)typeString;
 + (NSString *)countNumFromType:(NSString *)typeString person:(PersonModel *)model;
++ (NSString *)countNumFromType:(NSString *)typeString personDetail:(PersonDetailModel *)model;
 
 @end

@@ -43,14 +43,35 @@
     _isLoading = NO;
     _isWordVer = YES;
     
+    [self loadOldData];
     [self createNav];
     [self createtableView];
-    //NSLog(@"%@", NSHomeDirectory());
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)loadOldData{
+    NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Library/Caches/main123456789"];
+    NSFileManager *manager = [NSFileManager defaultManager];
+    if([manager fileExistsAtPath:path]){
+        NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath:path];
+        NSData *responseObject = [fileHandle readDataToEndOfFile];
+        [fileHandle closeFile];
+        
+        id result = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
+        if([result isKindOfClass:[NSDictionary class]]){
+            NSDictionary *dic = result;
+            NSArray *postsArray = dic[@"posts"];
+            for(NSDictionary *postDic in postsArray){
+                PostsModel *model = [[PostsModel alloc] init];
+                [model setValuesForKeysWithDictionary:postDic];
+                [_dataArray addObject:model];
+            }
+        }
+    }
 }
 
 - (void)createNav{
@@ -138,6 +159,15 @@
 }
 
 - (void)success:(AFHTTPRequestOperation *)operation response:(id)responseObject{
+    NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Library/Caches/main123456789"];
+    
+    NSFileManager *manager = [NSFileManager defaultManager];
+    [manager createFileAtPath:path contents:nil attributes:nil];
+    
+    NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:path];
+    [fileHandle writeData:responseObject];
+    [fileHandle closeFile];
+    
     if(_isRefresh){
         [_dataArray removeAllObjects];
     }

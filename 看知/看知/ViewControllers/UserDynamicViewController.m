@@ -14,12 +14,16 @@
 #import "PersonModel.h"
 #import "PersonCell.h"
 #import "PersonDetailViewController.h"
+#import "SearchViewController.h"
+#import "DBManager.h"
+#import "SearchCell.h"
 
 @interface UserDynamicViewController ()
     <HttpManagerDelegate, UITableViewDelegate, UITableViewDataSource, MJRefreshBaseViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) NSMutableArray *followArray;
 
 @property (nonatomic, assign) BOOL isLoading;
 @property (nonatomic, assign) NSInteger curPage;
@@ -27,6 +31,7 @@
 @property (nonatomic, strong) MJRefreshFooterView *footerView;
 
 @property (nonatomic, strong) UIButton *rightBtn;
+@property (nonatomic, strong) UISegmentedControl *segCtrl;
 @property (nonatomic, strong) NSString *urlString;
 
 @property (nonatomic, strong) UIVisualEffectView *effectView;
@@ -44,6 +49,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0];
     
     _dataArray = [NSMutableArray array];
+    _followArray = [NSMutableArray array];
     _curPage = 1;
     _isLoading = NO;
     _urlString = lAgreeUrl;
@@ -61,6 +67,14 @@
 - (void)createNav{
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:25/255.0 green:153/255.0 blue:255/255.0 alpha:1.0];
+    
+    NSArray *items = @[@"排行榜", @"已关注"];
+    _segCtrl = [[UISegmentedControl alloc] initWithItems:items];
+    _segCtrl.selectedSegmentIndex = 0;
+    _segCtrl.tintColor = [UIColor whiteColor];
+    [_segCtrl addTarget:self action:@selector(segmentedCtrlClick:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:_segCtrl];
+    self.navigationItem.titleView = _segCtrl;
     
     UIButton *leftBtn = [MyUtil createNavBtn:@"用户搜索" target:self action:@selector(gotoSearch:)];
     leftBtn.frame = CGRectMake(0, 0, 60, 25);
@@ -161,7 +175,9 @@
 
 #pragma mark - BottonClickAction
 - (void)gotoSearch:(UIButton *)btn{
-    
+    SearchViewController *svc = [[SearchViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:svc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)handoverOrder{
@@ -205,6 +221,34 @@
     }
 }
 
+- (void)segmentedCtrlClick:(UISegmentedControl *)seg{
+    switch (seg.selectedSegmentIndex) {
+        case 0:
+            _rightBtn.hidden = NO;
+            _headerView.hidden = NO;
+            _footerView.hidden = NO;
+            _headerView.scrollView = _tableView;
+            _footerView.scrollView = _tableView;
+            _tableView.contentOffset = CGPointMake(0, 0);
+            [_tableView reloadData];
+            break;
+        case 1:
+            [_followArray removeAllObjects];
+            [_followArray addObjectsFromArray:[[DBManager shareManager] queryAllFollows]];
+            
+            _rightBtn.hidden = YES;
+            _headerView.hidden = YES;
+            _footerView.hidden = YES;
+            _headerView.scrollView = nil;
+            _footerView.scrollView = nil;
+            _tableView.contentOffset = CGPointMake(0, 0);
+            [_tableView reloadData];
+            break;
+        default:
+            break;
+    }
+}
+
 #pragma mark - HttpManagerDelegate
 - (void)failure:(AFHTTPRequestOperation *)operation response:(NSError *)error{
     NSLog(@"UserDynamic:%@", error);
@@ -241,26 +285,47 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _dataArray.count;
+    if(_segCtrl.selectedSegmentIndex == 0){
+        return _dataArray.count;
+    }else{
+        return _followArray.count;
+    }
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    PersonCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PersonCellId"];
-    if(cell == nil){
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"PersonCell" owner:nil options:nil] lastObject];
+    if(_segCtrl.selectedSegmentIndex == 0){
+        PersonCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PersonCellId"];
+        if(cell == nil){
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"PersonCell" owner:nil options:nil] lastObject];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        PersonModel *model = _dataArray[indexPath.row];
+        [cell config:model order:[NSString stringWithFormat:@"%d", indexPath.row+1] type:_rightBtn.currentTitle];
+        return cell;
+    }else{
+        SearchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchCellId"];
+        if(cell == nil){
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"SearchCell" owner:nil options:nil] lastObject];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        PersonDetailModel *model = _followArray[indexPath.row];
+        [cell configDetail:model];
+        return cell;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    PersonModel *model = _dataArray[indexPath.row];
-    [cell config:model order:[NSString stringWithFormat:@"%d", indexPath.row+1] type:_rightBtn.currentTitle];
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    PersonModel *model = _dataArray[indexPath.row];
     PersonDetailViewController *pdvc = [[PersonDetailViewController alloc] init];
-    pdvc.personHash = model.personHash;
-    pdvc.typeLabelString = _rightBtn.currentTitle;
-    pdvc.countLabelString = [MyUtil countNumFromType:_rightBtn.currentTitle person:model];
+    if(_segCtrl.selectedSegmentIndex == 0){
+        PersonModel *model = _dataArray[indexPath.row];
+        pdvc.personHash = model.personHash;
+        pdvc.typeLabelString = _rightBtn.currentTitle;
+    }else{
+        PersonDetailModel *model = _followArray[indexPath.row];
+        pdvc.personHash = model.personHash;
+        pdvc.typeLabelString = @"赞同数";
+    }
     
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:pdvc animated:YES];

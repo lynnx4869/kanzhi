@@ -202,4 +202,64 @@
     }
 }
 
++ (NSString *)countNumFromType:(NSString *)typeString personDetail:(PersonDetailModel *)model{
+    if([typeString isEqualToString:@"提问"]){
+        return [NSString stringWithFormat:@"%@", model.ask];
+    }else if([typeString isEqualToString:@"回答"]){
+        return [NSString stringWithFormat:@"%@", model.answer];
+    }else if([typeString isEqualToString:@"专栏"]){
+        return [NSString stringWithFormat:@"%@", model.post];
+    }else if([typeString isEqualToString:@"赞同数"]){
+        return [NSString stringWithFormat:@"%@", model.agree];
+    }else if([typeString isEqualToString:@"1日增加"]){
+        return [NSString stringWithFormat:@"%@", model.agreei];
+    }else if([typeString isEqualToString:@"1日增幅"]){
+        return [NSString stringWithFormat:@"%@", model.agreeiratio];
+    }else if([typeString isEqualToString:@"7日增加"]){
+        return [NSString stringWithFormat:@"%@", model.agreeiw];
+    }else if([typeString isEqualToString:@"7日增幅"]){
+        return [NSString stringWithFormat:@"%@", model.agreeiratiow];
+    }else if([typeString isEqualToString:@"平均赞同"]){
+        return [NSString stringWithFormat:@"%@", model.ratio];
+    }else if([typeString isEqualToString:@"被关注数"]){
+        return [NSString stringWithFormat:@"%@", model.follower];
+    }else if([typeString isEqualToString:@"关注数"]){
+        return [NSString stringWithFormat:@"%@", model.followee];
+    }else if([typeString isEqualToString:@"1日增加"]){
+        return [NSString stringWithFormat:@"%@", model.followeri];
+    }else if([typeString isEqualToString:@"1日增幅"]){
+        return [NSString stringWithFormat:@"%@", model.followiratio];
+    }else if([typeString isEqualToString:@"7日增加"]){
+        return [NSString stringWithFormat:@"%@", model.followeriw];
+    }else if([typeString isEqualToString:@"7日增幅"]){
+        return [NSString stringWithFormat:@"%@", model.followiratiow];
+    }else if([typeString isEqualToString:@"感谢数"]){
+        return [NSString stringWithFormat:@"%@", model.thanks];
+    }else if([typeString isEqualToString:@"感谢/赞同比"]){
+        return [NSString stringWithFormat:@"%@", model.tratio];
+    }else if([typeString isEqualToString:@"收藏数"]){
+        return [NSString stringWithFormat:@"%@", model.fav];
+    }else if([typeString isEqualToString:@"收藏/赞同比"]){
+        return [NSString stringWithFormat:@"%@", model.fratio];
+    }else if([typeString isEqualToString:@"公共编辑"]){
+        return [NSString stringWithFormat:@"%@", model.logs];
+    }else if([typeString isEqualToString:@">10000"]){
+        return [NSString stringWithFormat:@"%@", model.count10000];
+    }else if([typeString isEqualToString:@">5000"]){
+        return [NSString stringWithFormat:@"%@", model.count5000];
+    }else if([typeString isEqualToString:@">2000"]){
+        return [NSString stringWithFormat:@"%@", model.count2000];
+    }else if([typeString isEqualToString:@">1000"]){
+        return [NSString stringWithFormat:@"%@", model.count1000];
+    }else if([typeString isEqualToString:@">500"]){
+        return [NSString stringWithFormat:@"%@", model.count500];
+    }else if([typeString isEqualToString:@">200"]){
+        return [NSString stringWithFormat:@"%@", model.count200];
+    }else if([typeString isEqualToString:@">100"]){
+        return [NSString stringWithFormat:@"%@", model.count100];
+    }else{
+        return @"";
+    }
+}
+
 @end

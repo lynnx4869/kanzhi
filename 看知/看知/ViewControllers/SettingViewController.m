@@ -12,7 +12,7 @@
 #import "AboutViewController.h"
 #import "CollectsViewController.h"
 
-@interface SettingViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface SettingViewController () <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
@@ -121,6 +121,24 @@
         self.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:cvc animated:YES];
         self.hidesBottomBarWhenPushed = NO;
+    }else if (indexPath.section == 1 && indexPath.row == 3){
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提醒"
+                                                            message:@"是否清空缓存？"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"取消"
+                                                  otherButtonTitles:@"确认", nil];
+        [alertView show];
+    }
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex == 1){
+        NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Library/Caches/main123456789"];
+        NSFileManager *manager = [NSFileManager defaultManager];
+        if([manager fileExistsAtPath:path]){
+            [manager removeItemAtPath:path error:nil];
+        }
     }
 }
 
