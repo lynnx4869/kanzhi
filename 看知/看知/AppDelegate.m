@@ -21,7 +21,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
-    
+    NSString* str = @"这只是一个修改";
     MainTabBarViewController *mtvc = [[MainTabBarViewController alloc] init];
     self.window.rootViewController = mtvc;
     
